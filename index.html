@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hindi AI Video Studio</title>
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;padding:18px;
+font-family:Arial,sans-serif;
+background:#101426;color:white
+}
+.box{
+max-width:600px;margin:auto;
+background:#1c2340;padding:20px;
+border-radius:18px
+}
+h1{text-align:center;color:#75e6ff}
+p{text-align:center;color:#ddd}
+label{display:block;margin-top:18px}
+textarea,select,input{
+width:100%;padding:13px;margin-top:8px;
+border-radius:9px;border:1px solid #555;
+background:#101426;color:white;font-size:16px
+}
+button{
+width:100%;padding:15px;margin-top:15px;
+border:0;border-radius:10px;
+background:#00cba9;color:#101426;
+font-weight:bold;font-size:16px
+}
+#result{
+white-space:pre-wrap;line-height:1.7;
+overflow-wrap:anywhere;margin-top:20px
+}
+.small{font-size:13px;color:#bbb}
+</style>
+</head>
+<body>
+<div class="box">
+<h1>🎬 Hindi AI Video Studio</h1>
+<p>अपनी कहानी से वीडियो बनाने की तैयारी करें</p>
+
+<label>अपनी हिंदी कहानी लिखें</label>
+<textarea id="story" rows="7"
+placeholder="यहाँ अपनी पूरी हिंदी कहानी लिखें..."></textarea>
+
+<label>वीडियो की अवधि</label>
+<select id="duration">
+<option value="1">1 मिनट</option>
+<option value="3">3 मिनट</option>
+<option value="5">5 मिनट</option>
+<option value="10" selected>10 मिनट</option>
+</select>
+
+<label>वीडियो का प्रकार</label>
+<select id="style">
+<option>Realistic Human Video</option>
+<option>3D Cartoon</option>
+<option>Animated Story</option>
+<option>Cinematic Movie</option>
+</select>
+
+<label>आवाज की भाषा</label>
+<select id="voice">
+<option>हिंदी पुरुष आवाज</option>
+<option>हिंदी महिला आवाज</option>
+</select>
+
+<button onclick="makePlan()">वीडियो प्लान बनाएँ</button>
+<button onclick="downloadPlan()">प्लान डाउनलोड करें</button>
+
+<div id="result"></div>
+<p class="small">
+नोट: यह शुरुआती वेबसाइट है। वास्तविक AI वीडियो और आवाज
+बनाने के लिए बाद में AI सेवा जोड़नी होगी।
+</p>
+</div>
+
+<script>
+let plan = "";
+
+function makePlan(){
+let story=document.getElementById("story").value.trim();
+let duration=Number(document.getElementById("duration").value);
+let style=document.getElementById("style").value;
+let voice=document.getElementById("voice").value;
+
+if(!story){
+alert("पहले अपनी कहानी लिखिए!");
+return;
+}
+
+let scenes=duration*6;
+plan="HINDI AI VIDEO PLAN\n\n";
+plan+="कहानी:\n"+story+"\n\n";
+plan+="अवधि: "+duration+" मिनट\n";
+plan+="वीडियो शैली: "+style+"\n";
+plan+="आवाज: "+voice+"\n";
+plan+="सीन की संख्या: "+scenes+"\n\n";
+
+for(let i=1;i<=scenes;i++){
+plan+="सीन "+i+"\n";
+plan+="कहानी के अनुसार दृश्य "+i+
+" दिखाएँ। मुख्य पात्रों का चेहरा और कपड़े एक जैसे रखें।\n";
+plan+="शैली: "+style+
+". भाषा: हिंदी. आवाज: "+voice+
+". साफ आवाज, प्राकृतिक गतिविधियाँ और सिनेमैटिक दृश्य।\n\n";
+}
+
+document.getElementById("result").textContent=
+"✅ आपका वीडियो प्लान तैयार है!\n\n"+plan;
+}
+
+function downloadPlan(){
+if(!plan){
+alert("पहले वीडियो प्लान बनाएँ!");
+return;
+}
+let blob=new Blob([plan],{type:"text/plain;charset=utf-8"});
+let url=URL.createObjectURL(blob);
+let a=document.createElement("a");
+a.href=url;
+a.download="hindi-video-plan.txt";
+a.click();
+URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
